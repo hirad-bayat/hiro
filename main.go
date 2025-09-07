@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("this is Database Connection Demo...")
 
 	Database.Connect()
-	err := Database.DB.AutoMigrate(&Models.User{}, &Models.Blog{})
+	err := Database.DB.AutoMigrate(&Models.User{}, &Models.Blog{}, &Models.AccessToken{})
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}
@@ -22,6 +22,7 @@ func main() {
 	r := gin.Default()
 	Routes.RegisterUserRoutes(r)
 	Routes.RegisterBlogRoutes(r)
+	Routes.RegisterAuthRoutes(r)
 
 	r.Run(":8080")
 }
