@@ -6,6 +6,6 @@ import (
 )
 
 func RegisterWebRoutes(r *gin.Engine) {
-	r.GET("/", Controllers.GetBlogs)
+	r.GET("/", Controllers.HomePage)
 	r.GET("/contact", Controllers.GetBlog)
 }

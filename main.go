@@ -11,7 +11,6 @@ import (
 
 func main() {
 	fmt.Println("this is Database Connection Demo...")
-
 	Database.Connect()
 	err := Database.DB.AutoMigrate(&Models.User{}, &Models.Blog{}, &Models.AccessToken{})
 	if err != nil {
@@ -23,6 +22,12 @@ func main() {
 	Routes.RegisterUserRoutes(r)
 	Routes.RegisterBlogRoutes(r)
 	Routes.RegisterAuthRoutes(r)
+	Routes.RegisterWebRoutes(r)
+
+	r.Static("/assets", "./public/assets")
+
+	// Load HTML templates
+	r.LoadHTMLGlob("Resources/**/*.gohtml")
 
 	r.Run(":8080")
 }
