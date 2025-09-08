@@ -8,30 +8,30 @@ import (
 
 func RegisterUserRoutes(r *gin.Engine) {
 	// Public routes
-	r.GET("/users", Controllers.GetUsers)
-	r.POST("/users", Controllers.CreateUser)
+	r.GET("api/users", Controllers.GetUsers)
+	r.POST("api/users", Controllers.CreateUser)
 
 	// Protected routes
 	protected := r.Group("/")
 	protected.Use(Middlewares.JWTMiddleware())
 	{
-		protected.GET("/users/:id", Controllers.GetUser)
-		protected.PUT("/users/:id", Controllers.UpdateUser)
-		protected.DELETE("/users/:id", Controllers.DeleteUser)
+		protected.GET("api/users/:id", Controllers.GetUser)
+		protected.PUT("api/users/:id", Controllers.UpdateUser)
+		protected.DELETE("api/users/:id", Controllers.DeleteUser)
 	}
 }
 
 func RegisterBlogRoutes(r *gin.Engine) {
-	r.GET("/blogs", Controllers.GetBlogs)
-	r.POST("/blogs", Controllers.CreateBlog)
-	r.GET("/blogs/:id", Controllers.GetBlog)
-	r.PUT("/blogs/:id", Controllers.UpdateBlog)
-	r.DELETE("/blogs/:id", Controllers.DeleteBlog)
+	r.GET("api/blogs", Controllers.GetBlogs)
+	r.POST("api/blogs", Controllers.CreateBlog)
+	r.GET("api/blogs/:id", Controllers.GetBlog)
+	r.PUT("api/blogs/:id", Controllers.UpdateBlog)
+	r.DELETE("api/blogs/:id", Controllers.DeleteBlog)
 }
 
 // RegisterAuthRoutes adds authentication routes
 func RegisterAuthRoutes(r *gin.Engine) {
-	r.POST("/login", Controllers.Login)
-	r.POST("/logout", Middlewares.JWTMiddleware(), Controllers.Logout)
-	r.POST("/register", Controllers.Register)
+	r.POST("api/login", Controllers.Login)
+	r.POST("api/logout", Middlewares.JWTMiddleware(), Controllers.Logout)
+	r.POST("api/register", Controllers.Register)
 }

@@ -5,8 +5,11 @@ import (
 	"Hiro/Models"
 	"Hiro/Routes"
 	"fmt"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 )
 
 func main() {
@@ -19,6 +22,18 @@ func main() {
 	fmt.Println("✅ Database migration completed!")
 
 	r := gin.Default()
+
+	// Session middleware setup
+	store := cookie.NewStore([]byte("your-secret-key")) // Change this to a secure random key
+	store.Options(sessions.Options{
+		Path:     "/",
+		MaxAge:   86400 * 7, // 7 days
+		HttpOnly: true,
+		Secure:   false, // Set to true in production with HTTPS
+		SameSite: http.SameSiteStrictMode,
+	})
+	r.Use(sessions.Sessions("auth-session", store))
+
 	Routes.RegisterUserRoutes(r)
 	Routes.RegisterBlogRoutes(r)
 	Routes.RegisterAuthRoutes(r)

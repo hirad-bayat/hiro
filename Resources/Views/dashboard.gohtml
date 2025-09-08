@@ -1,0 +1,16 @@
+{{define "dashboard"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{{.title}}</title>
+    </head>
+    <body>
+    <h1>Welcome to Dashboard, {{.user.Name}}!</h1>
+    <p>Email: {{.user.Email}}</p>
+
+    <form method="POST" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+    </body>
+    </html>
+{{end}}
