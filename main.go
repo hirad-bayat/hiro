@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Hiro/Configs"
 	"Hiro/Database"
 	"Hiro/Models"
 	"Hiro/Routes"
@@ -14,8 +15,16 @@ import (
 
 func main() {
 	fmt.Println("this is Database Connection Demo...")
-	Database.Connect()
-	err := Database.DB.AutoMigrate(&Models.User{}, &Models.Blog{}, &Models.AccessToken{})
+
+	// Load configuration
+	cfg, err := Configs.LoadConfig("./Configs")
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
+	// Initialize database connection
+	Database.Connect(cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.DBName)
+	err = Database.DB.AutoMigrate(&Models.User{}, &Models.Blog{}, &Models.AccessToken{})
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}

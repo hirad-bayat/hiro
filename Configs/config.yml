@@ -1,0 +1,16 @@
+app:
+  name: "My Application"
+  port: 8080
+  environment: "development"
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "Hirad1375"
+  dbname: "prd_api"
+  sslmode: "disable"
+
+logging:
+  level: "info"
+  file: "app.log"
