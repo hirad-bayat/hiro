@@ -2,22 +2,28 @@ package Routes
 
 import (
 	"Hiro/Controllers"
+	UserController "Hiro/Internal/User/Controllers"
 	"Hiro/Middlewares"
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterUserRoutes(r *gin.Engine) {
-	// Public routes
-	r.GET("api/users", Controllers.GetUsers)
-	r.POST("api/users", Controllers.CreateUser)
+func SetupRouter(userHandler *UserController.UserHandler, r *gin.Engine) {
 
-	// Protected routes
-	protected := r.Group("/")
-	protected.Use(Middlewares.JWTMiddleware())
+	// Use consistent base path
+	api := r.Group("/api")
 	{
-		protected.GET("api/users/:id", Controllers.GetUser)
-		protected.PUT("api/users/:id", Controllers.UpdateUser)
-		protected.DELETE("api/users/:id", Controllers.DeleteUser)
+		// Public routes - use handler methods consistently
+		api.GET("/users", userHandler.GetUsers)
+		api.POST("/users", userHandler.CreateUser)
+
+		// Protected routes
+		protected := api.Group("/")
+		protected.Use(Middlewares.JWTMiddleware())
+		{
+			protected.GET("/users/:id", userHandler.GetUser)
+			//protected.PUT("/users/:id", userHandler.UpdateUser)
+			//protected.DELETE("/users/:id", userHandler.DeleteUser)
+		}
 	}
 }
 

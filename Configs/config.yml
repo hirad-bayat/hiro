@@ -11,6 +11,14 @@ database:
   dbname: "prd_api"
   sslmode: "disable"
 
+swagger:
+  url:
+  port:
+
+cors:
+  urls: "localhost:3000"
+
 logging:
   level: "info"
   file: "app.log"
+

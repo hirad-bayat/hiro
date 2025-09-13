@@ -10,7 +10,7 @@ type Config struct {
 		Name        string `map structure:"name"`
 		Port        int    `map structure:"port"`
 		Environment string `map structure:"environment"`
-	} `mapstructure:"app"`
+	} `map structure:"app"`
 
 	Database struct {
 		Host     string `map structure:"host"`
